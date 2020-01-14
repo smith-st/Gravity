@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MathUtil {
+public static class MathUtil {
 
-	public static float AngleBeetwenTwoPoints (Vector2 p1, Vector2 p2){
+	public static float AngleBetweenTwoPoints (Vector2 p1, Vector2 p2){
 		var dx = p2.x - p1.x;
 		var dy = p2.y - p1.y;
 		return Rad2Grad( Mathf.Atan2(dy,dx));

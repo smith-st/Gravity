@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Linq;
-using Interfaces;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainController : MonoBehaviour, IBallCollision, IPlanetChanger
 {
@@ -10,6 +10,7 @@ public class MainController : MonoBehaviour, IBallCollision, IPlanetChanger
     public EdgeCollider2D border;
     public MainMenu menu;
     public GameObject exitText;
+    public Text scoreText;
 
     private const float Force = 7f;
     private const float ExitDelay = 3f;
@@ -17,6 +18,7 @@ public class MainController : MonoBehaviour, IBallCollision, IPlanetChanger
     private bool _isTouch;
     private Camera _camera;
     private Coroutine _exitCoroutine;
+    private int _score;
     private void Awake()
     {
         Application.targetFrameRate = 60;
@@ -91,7 +93,7 @@ public class MainController : MonoBehaviour, IBallCollision, IPlanetChanger
     private void FixedUpdate()
     {
         if (!_isTouch) return;
-        var angle = MathUtil.AngleBeetwenTwoPoints(ball.transform.position, _camera.ScreenToWorldPoint(Input.mousePosition));
+        var angle = MathUtil.AngleBetweenTwoPoints(ball.transform.position, _camera.ScreenToWorldPoint(Input.mousePosition));
         var direction = MathUtil.rotateVector(new Vector2(Force, 0f), angle);
         ball.Rigidbody.AddForce(direction,ForceMode2D.Force);
     }
@@ -115,6 +117,8 @@ public class MainController : MonoBehaviour, IBallCollision, IPlanetChanger
     public void BallContactWithPlatform(Platform platform)
     {
         (platform as IColorChange)?.ChangeColor();
+        _score++;
+        scoreText.text = $"Hits: {_score}";
     }
 
     private void ShowMenu(bool show = true)

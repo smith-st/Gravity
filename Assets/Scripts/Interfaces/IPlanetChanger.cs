@@ -1,7 +1,4 @@
-namespace Interfaces
+public interface IPlanetChanger
 {
-    public interface IPlanetChanger
-    {
-        void ChangeCurrentPlanet(PlanetType type);
-    }
+    void ChangeCurrentPlanet(PlanetType type);
 }

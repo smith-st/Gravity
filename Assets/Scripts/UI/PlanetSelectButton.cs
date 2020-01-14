@@ -1,5 +1,4 @@
-﻿using Interfaces;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class PlanetSelectButton : MonoBehaviour, IPointerClickHandler
