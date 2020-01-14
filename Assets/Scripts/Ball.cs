@@ -7,13 +7,24 @@ public class Ball : MonoBehaviour
 
     private IBallCollision _listener;
 
+    private void Awake()
+    {
+        Rigidbody = GetComponent<Rigidbody2D>();
+        Freeze();
+    }
     public void AddListener(IBallCollision listener)
     {
         _listener = listener;
     }
-    private void Awake()
+
+    public void Freeze()
     {
-        Rigidbody = GetComponent<Rigidbody2D>();
+        Rigidbody.simulated = false;
+    }
+
+    public void Unfreeze()
+    {
+        Rigidbody.simulated = true;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
