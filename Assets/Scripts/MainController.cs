@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-public class MainController : MonoBehaviour
+public class MainController : MonoBehaviour, IBallCollision
 {
     public PlanetSettings[] planets;
     public Ball ball;
@@ -28,7 +28,8 @@ public class MainController : MonoBehaviour
         };
 
         _border.points = points;
-        ChangePlanetType(PlanetType.Moon);
+        ChangePlanetType(PlanetType.Earth);
+        ball.AddListener(this);
     }
 
     private void FixedUpdate()
@@ -49,5 +50,10 @@ public class MainController : MonoBehaviour
         var planetSettings = planets.First(p => p.type == type);
         _camera.backgroundColor = planetSettings.color;
         Physics2D.gravity = new Vector2(0f, -planetSettings.gravity);
+    }
+
+    public void BallContactWithPlatform(Platform platform)
+    {
+        (platform as IColorChange)?.ChangeColor();
     }
 }
